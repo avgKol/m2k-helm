@@ -1,0 +1,76 @@
+apiVersion: move2kube.konveyor.io/v1alpha1
+kind: QACache
+spec:
+  solutions:
+    - id: move2kube.sources.types
+      description: 'Select all source types that you are interested in:'
+      context:
+        - Services that don't support any of the source types you are interested in will be ignored.
+      solution:
+        type: MultiSelect
+        default:
+          - Dockerfile
+          - DockerCompose
+          - CloudFoundry
+          - Containerize
+          - Kubernetes
+        options:
+          - Dockerfile
+          - DockerCompose
+          - CloudFoundry
+          - Containerize
+          - Kubernetes
+        answer:
+          - Kubernetes
+      resolved: true
+    - id: move2kube.target.artifacttype
+      description: 'Choose the artifact type:'
+      context:
+        - Yamls - Generate Kubernetes Yamls
+        - Helm - Generate Helm chart
+        - Knative - Create Knative artifacts
+      solution:
+        type: Select
+        default:
+          - Yamls
+        options:
+          - Yamls
+          - Helm
+          - Knative
+        answer:
+          - Helm
+      resolved: true
+    - id: move2kube.target.clustertype
+      description: 'Choose the cluster type:'
+      context:
+        - Choose the cluster type you would like to target
+      solution:
+        type: Select
+        default:
+          - Kubernetes
+        options:
+          - Azure-AKS
+          - GCP-GKE
+          - IBM-IKS
+          - IBM-Openshift
+          - Kubernetes
+          - Openshift
+          - AWS-EKS
+        answer:
+          - Kubernetes
+      resolved: true
+    - id: move2kube.target.imageregistry.logintype
+      description: '[] What type of container registry login do you want to use?'
+      context:
+        - Docker login from config mode, will use the default config from your local machine.
+      solution:
+        type: Select
+        default:
+          - No authentication
+        options:
+          - Use existing pull secret
+          - No authentication
+          - UserName/Password
+        answer:
+          - No authentication
+      resolved: true
